@@ -1,0 +1,42 @@
+.navbar {
+    background-color: #e0c8a0; /* Color marrón claro */
+}
+
+.nav-link {
+    position: relative;
+    text-decoration: none;
+    color: black;
+}
+
+.nav-link {
+    position: relative;
+    text-decoration: none;
+    color: black;
+    font-size: 20px; /* Ajusta el tamaño del texto */
+    font-family: 'Times new roman', serif; /* Establece el estilo de fuente */
+}
+
+
+.nav-link:hover::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    background-color: black;
+    transform: scaleX(1);
+    transition: transform 0.15s ease-in-out;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    background-color: black;
+    transform: scaleX(0);
+    transition: transform 0.15s ease-in-out;
+}

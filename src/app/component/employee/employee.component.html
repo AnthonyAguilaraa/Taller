@@ -1,0 +1,79 @@
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="employee-form">
+  <h2>{{ isEditing ? 'Edit Employee' : 'Add Employee' }}</h2>
+
+  <div class="form-group">
+    <label>First Name</label>
+    <input formControlName="first_name" />
+    <div *ngIf="employeeForm.get('first_name')?.invalid && (employeeForm.get('first_name')?.dirty || employeeForm.get('first_name')?.touched)">
+      <small *ngIf="employeeForm.get('first_name')?.errors?.['required']">First name is required.</small>
+      <small *ngIf="employeeForm.get('first_name')?.errors?.['maxlength']">Max length is 20.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Last Name</label>
+    <input formControlName="last_name" />
+    <div *ngIf="employeeForm.get('last_name')?.invalid && (employeeForm.get('last_name')?.dirty || employeeForm.get('last_name')?.touched)">
+      <small *ngIf="employeeForm.get('last_name')?.errors?.['required']">Last name is required.</small>
+      <small *ngIf="employeeForm.get('last_name')?.errors?.['maxlength']">Max length is 25.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Email</label>
+    <input formControlName="email" />
+    <div *ngIf="employeeForm.get('email')?.invalid && (employeeForm.get('email')?.dirty || employeeForm.get('email')?.touched)">
+      <small *ngIf="employeeForm.get('email')?.errors?.['required']">Email is required.</small>
+      <small *ngIf="employeeForm.get('email')?.errors?.['email']">Invalid email format.</small>
+      <small *ngIf="employeeForm.get('email')?.errors?.['maxlength']">Max length is 25.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Phone Number</label>
+    <input formControlName="phone_number" />
+  </div>
+
+  <div class="form-group">
+    <label>Hire Date</label>
+    <input type="date" formControlName="hire_date" />
+    <div *ngIf="employeeForm.get('hire_date')?.invalid && (employeeForm.get('hire_date')?.dirty || employeeForm.get('hire_date')?.touched)">
+      <small *ngIf="employeeForm.get('hire_date')?.errors?.['required']">Hire date is required.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Job ID</label>
+    <input formControlName="job_id" />
+    <div *ngIf="employeeForm.get('job_id')?.invalid && (employeeForm.get('job_id')?.dirty || employeeForm.get('job_id')?.touched)">
+      <small *ngIf="employeeForm.get('job_id')?.errors?.['required']">Job ID is required.</small>
+      <small *ngIf="employeeForm.get('job_id')?.errors?.['maxlength']">Max length is 10.</small>
+    </div>
+  </div>
+
+  <div class="search-container">
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Search by Name or ID" (input)="filterEmployees()" />
+    <select [(ngModel)]="selectedEmployee" (change)="loadEmployeeDetails()">
+      <option *ngFor="let employee of filteredEmployees" [value]="employee.employee_id">
+        {{ employee.first_name }} {{ employee.last_name }} (ID: {{ employee.employee_id }})
+      </option>
+    </select>
+  </div>
+  
+  
+
+  <div class="button-group">
+    <button type="submit" class="btn primary">Create</button>
+    <button type="button" class="btn secondary" >Edit</button>
+    <button type="button" class="btn danger" >Delete</button>
+  </div>
+</form>
+
+<!-- Lista de empleados -->
+<ul>
+  <li *ngFor="let employee of employees">
+    {{ employee.first_name }} {{ employee.last_name }} - {{ employee.email }}
+    <button (click)="editEmployee(employee)">Edit</button>
+    <button (click)="deleteEmployee(employee.employee_id)">Delete</button>
+  </li>
+</ul>
